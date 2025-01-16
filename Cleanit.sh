@@ -47,10 +47,22 @@ format_log() {
     "$(gum style --foreground "#00e9ff" "$clean_target")"
 }
 
-# Prompt for directory
-directory=$(gum input --placeholder "Enter directory to tidy up (default: current directory)" --value "$PWD")
-directory=${directory:-$PWD}
+# Function to navigate directories
+navigate_directory() {
+  local current_dir="$1"
+  while true; do
+    selected_dir=$(find "$current_dir" -maxdepth 1 -type d | gum choose --no-limit --placeholder "Select a directory to navigate or press Enter to select current directory")
+    if [ -z "$selected_dir" ]; then
+      echo "$current_dir"
+      break
+    else
+      current_dir="$selected_dir"
+    fi
+  done
+}
 
+# Prompt for directory
+directory=$(navigate_directory "$PWD")
 check_directory "$directory"
 
 # Confirm dry-run mode
@@ -102,22 +114,17 @@ done
 
 # Display logs in a styled box
 if [ ${#log_entries[@]} -gt 0 ]; then
-  # Create border style
-  # gum style --border normal --padding "1 2" --margin "1" --align left --width 120 " "
   # Print header
   gum style --border normal --align center --foreground "#00e9ff" "File Organization Summary"
   echo
   # Print entries
   gum style --border normal --padding "1 2" --margin "1" --align left --bold \
     "$(printf "  %s\n" "${log_entries[@]}")"
-  # gum style --border normal --padding "1 2" --margin "1" --align left --width 120 " "
 else
   gum style --border normal \
     --padding "1 2" \
     --margin "1" \
-    \
-    "No files were moved." \
-    echo # --width 120 \
+    "No files were moved."
 fi
 
 # Completion message
