@@ -1,6 +1,6 @@
 # Cleanit CLI
 
-A smart command-line tool that automatically organizes files in a directory by their extensions. Built with shell script and enhanced with [Gum](https://github.com/charmbracelet/gum) for a beautiful terminal user interface.
+A smart command-line tool that automatically organizes files in a directory by their extensions. Built with Node.js and enhanced with [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) for interactive terminal prompts and [Chalk](https://github.com/chalk/chalk) for colorful output.
 
 ## Features
 
@@ -13,23 +13,24 @@ A smart command-line tool that automatically organizes files in a directory by t
 
 ## Prerequisites
 
-- Bash shell
-- [Gum](https://github.com/charmbracelet/gum) - For the interactive terminal UI
+- Node.js
+- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) - For interactive terminal prompts
+- [Chalk](https://github.com/chalk/chalk) - For colorful terminal output
 
 ## Installation
 
-1. Install Gum following the instructions at: https://github.com/charmbracelet/gum
-2. Download the cleanit.sh script
-3. Make it executable:
+1. Ensure Node.js is installed on your system.
+2. Install the required packages:
    ```bash
-   chmod +x cleanit.sh
+   npm install inquirer chalk
    ```
+3. Download the `Cleanit.js` script.
 
 ## Usage
 
 Run the script:
 ```bash
-./cleanit.sh
+node Cleanit.js
 ```
 
 The script will guide you through the following steps:
@@ -47,13 +48,13 @@ The script will guide you through the following steps:
 
 ## How It Works
 
-1. The script first checks for loose files in the specified directory
+1. The script first checks for loose files in the specified directory.
 2. For each file:
    - Extracts the file extension
    - Creates a folder named after the extension (if it doesn't exist)
    - Moves the file into the corresponding folder
-3. Files without extensions are moved to an "others" folder
-4. Provides a detailed summary of all operations
+3. Files without extensions are moved to an "others" folder.
+4. Provides a detailed summary of all operations.
 
 ## Example Output
 
